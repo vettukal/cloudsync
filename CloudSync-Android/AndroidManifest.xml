@@ -44,6 +44,8 @@
         <activity android:name=".AccountsActivity" android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
+        
+        <activity android:name="org.openintents.cloudsync.SyncActivity"></activity>
 
         <!-- In order to use the C2DM library, an application must declare a class 
              with the name C2DMReceiver, extending com.google.android.c2dm.C2DMBaseReceiver.

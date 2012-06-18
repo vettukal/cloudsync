@@ -67,5 +67,6 @@
     <!-- Notification message [CHAR LIMIT=NONE] -->
     <string name="unregistration_succeeded">Unegistered %1$s for C2DM messaging.</string>
     <string name="sync_test_text">Sync the data </string>
+    <string name="prepare_sync">Preparing for Sync</string>
 
 </resources>

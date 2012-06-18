@@ -137,7 +137,29 @@ public class CloudSyncActivity extends Activity {
         final Button deleteAll = (Button) findViewById(R.id.delete_all);
         String tag="vincent";
         
+        /**
+         * Using the below code only when called from SyncAcitivity
+         * 
+         */
         
+        Bundle extras = getIntent().getExtras();
+    	Log.d("vincent","intent notesyndemo"+getIntent().describeContents()+"and action is:"+getIntent().getAction());
+    	
+    	String jsonData = "";
+    	if(getIntent().getAction().equalsIgnoreCase("vincent.start")) {
+    		// Get the client data 
+    		Button fireButton = (Button) findViewById(R.id.sync_test);
+    		fireButton.setEnabled(false);
+    		helloWorld.setText("Loading the data from Server. Please wait");
+    		jsonData = extras.getString("data");
+    		AsyncTaskList atl = new AsyncTaskList(this);  
+        	
+            atl.execute(jsonData);
+    	}
+    	else {
+    		
+    	}
+    	
         /**
         Uri customUri = Uri.parse(IdMapContentProvider.CONTENT_URI.toString());
         Log.d(tag, "customeUri:-> "+customUri.toString());
@@ -285,6 +307,8 @@ public class CloudSyncActivity extends Activity {
         final Button syncButton = (Button) findViewById(R.id.sync_test);
         syncButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
+            	Button fireButton = (Button) findViewById(R.id.sync_test);
+            	fireButton.setEnabled(false);
             	helloWorld.setText("Syncing Process Started");
             	startSync();
             }
@@ -305,7 +329,7 @@ public class CloudSyncActivity extends Activity {
     }
     
     private void startSync() {
-    	
+    	/**
     	Bundle extras = getIntent().getExtras();
     	Log.d("vincent","intent notesyndemo"+getIntent().describeContents()+"and action is:"+getIntent().getAction());
     	
@@ -320,7 +344,12 @@ public class CloudSyncActivity extends Activity {
     	else {
     		
     	}
+    	*/
     	
+    	// For the Demo App.
+    	// Call the syncActivity of the OI Note
+    	Intent i = new Intent(this, SyncActivity.class);
+		startActivity(i);
 		
 	}
     
