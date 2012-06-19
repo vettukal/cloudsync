@@ -160,6 +160,17 @@ public class CloudSyncActivity extends Activity {
     		
     	}
     	
+    	try {
+    		Uri noteUri  = NotePad.Notes.CONTENT_URI;
+        	Cursor cursor = getContentResolver().query(noteUri, null, null, null, null);
+        	cursor.moveToFirst();
+    	} catch (Exception e) {
+			helloWorld.setText("OI Note content Provider Not available");
+			final Button syncButton = (Button) findViewById(R.id.sync_test);
+			syncButton.setEnabled(false);
+		}
+    	
+    	
         /**
         Uri customUri = Uri.parse(IdMapContentProvider.CONTENT_URI.toString());
         Log.d(tag, "customeUri:-> "+customUri.toString());
