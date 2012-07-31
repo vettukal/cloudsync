@@ -72,7 +72,7 @@
         
         <receiver  android:process=":remote" android:name="Alarm"></receiver>
         
-        <receiver android:name="org.openintents.cloudsync.syncadapter.StartupIntentReceiver" >
+        <receiver android:name="org.openintents.cloudsync.service.StartupIntentReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
 
@@ -99,5 +99,10 @@
       android:authorities="org.openintents.cloudsync.contentprovider" >
    </provider>
    
-    </application>
+            <service android:name="org.openintents.cloudsync.service.StartUpService" >
+            <intent-filter>
+                <action android:name="org.openintents.cloudsync.service.StartUpService" />
+            </intent-filter>
+        </service>
+</application>
 </manifest>
