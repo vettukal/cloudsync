@@ -1,6 +1,5 @@
 package org.openintents.cloudsync.service;
 
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -23,8 +22,9 @@ public class StartUpService extends Service {
 	public void onCreate() {
 		super.onCreate();
 
-		Toast.makeText(this, "Service Created", Toast.LENGTH_LONG).show();
-		if (debug) Log.d(TAG,"Started the service of onCreate :-> ");
+
+		Toast.makeText(this, "Service Created Vincent", Toast.LENGTH_LONG).show();
+		if (debug) Log.d(TAG,"startup service onCreate:-> ");
 
 	}
 
@@ -32,7 +32,8 @@ public class StartUpService extends Service {
 	public void onDestroy() {
 		super.onDestroy();
 
-		Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
+		Toast.makeText(this, "Service Destroyed Vincent", Toast.LENGTH_LONG).show();
+		
 
 	}
 
@@ -40,9 +41,8 @@ public class StartUpService extends Service {
 	public void onStart(Intent intent, int startId) {
 
 		super.onStart(intent, startId);
-
-		Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
-		if (debug) Log.d(TAG,"Started the service of onStart :-> ");
+		Toast.makeText(this, "Service Started Vincent", Toast.LENGTH_LONG).show();
+		if (debug) Log.d(TAG,"The startup service onStart():-> ");
 		
 		startServiceSync();
 
@@ -52,6 +52,5 @@ public class StartUpService extends Service {
 		
 		AsyncDetectChange adc = new AsyncDetectChange(this);
 		adc.execute();
-		
 	}
 }

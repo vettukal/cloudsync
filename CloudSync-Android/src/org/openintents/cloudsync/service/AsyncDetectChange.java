@@ -2,8 +2,6 @@ package org.openintents.cloudsync.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import org.openintents.cloudsync.AsyncSync;
 import org.openintents.cloudsync.CloudSyncActivity;
 import org.openintents.cloudsync.notepad.NotePad;
 import org.openintents.cloudsync.util.ArrayUtil;
@@ -42,7 +40,8 @@ public class AsyncDetectChange extends AsyncTask<Void, Void, String[]>{
 	private static StringBuilder jsonBuilder = new StringBuilder();
 	private static StringBuilder jsonDeleteBuilder = new StringBuilder();
 	
-	private CloudSyncActivity activity;
+
+	//private CloudSyncActivity activity;
 	private Context context;
 	
 	public AsyncDetectChange(Context context) {
@@ -146,7 +145,9 @@ public class AsyncDetectChange extends AsyncTask<Void, Void, String[]>{
 	        NotePad.Notes.SCROLL_POSITION//10
 	    };
 		
-		Cursor cursor = activity.getContentResolver().query(NOTE_CONTENT_URI, PROJECTIONALL, null, null, null);
+
+		Cursor cursor = context.getContentResolver().query(NOTE_CONTENT_URI, PROJECTIONALL, null, null, null);
+
 		cursor.moveToFirst();
 		
 		for (int i = 0; i < cursor.getCount(); i++) {
@@ -232,9 +233,9 @@ public class AsyncDetectChange extends AsyncTask<Void, Void, String[]>{
 		Uri modDel = Uri.parse(MODIFY_CONTENT_URI.toString());
 		Uri idDel = Uri.parse(IDMAPS_CONTENT_URI.toString());
 		
-		int timeDelret = activity.getContentResolver().delete(timeDel,null, null);
-		int modret = activity.getContentResolver().delete(modDel, null, null);
-		int idret = activity.getContentResolver().delete(idDel, null, null);
+		int timeDelret = context.getContentResolver().delete(timeDel,null, null);
+		int modret = context.getContentResolver().delete(modDel, null, null);
+		int idret = context.getContentResolver().delete(idDel, null, null);
 		
 		if (debug) Log.d("vincent", "returned vals "+timeDelret+" "+modret+" "+idret);
 		
@@ -272,7 +273,8 @@ public class AsyncDetectChange extends AsyncTask<Void, Void, String[]>{
 
 	private long[][] getModArray() {
 		
-		Cursor cursor = activity.getContentResolver().query(MOD_CONTENT_URI, null, null, null, null);
+
+		Cursor cursor = context.getContentResolver().query(MOD_CONTENT_URI, null, null, null, null);
 		cursor.moveToFirst();
 		long[][] modArray = new long[cursor.getCount()][3];
 		for(int i=0;i<cursor.getCount();i++){
@@ -294,7 +296,8 @@ public class AsyncDetectChange extends AsyncTask<Void, Void, String[]>{
 	        NotePad.Notes.MODIFIED_DATE,
 	    };
 		
-		Cursor cursor = activity.getContentResolver().query(NOTE_CONTENT_URI, PROJECTION, null, null, null);
+		Ulg.d("the note content uri is :-> "+NOTE_CONTENT_URI.toString());
+		Cursor cursor = context.getContentResolver().query(NOTE_CONTENT_URI, PROJECTION, null, null, null);
 		cursor.moveToFirst();
 		long[][] noteArray = new long[cursor.getCount()][3];
 		for(int i=0;i<cursor.getCount();i++) {
@@ -312,13 +315,13 @@ public class AsyncDetectChange extends AsyncTask<Void, Void, String[]>{
 	protected void onPostExecute(String[] result) {
 		Ulg.d("[ChngNote] inside postexcute of ChngNote");
 		
-		activity.displayText("Going to fetch data from Server!");
+		//activity.displayText("Going to fetch data from Server!");
 		if (debug) Log.d(TAG, "inside post execute");
 		// checked for the case when there is no modification....
 		String jsonString = result[0];
 		String jsonDeleteString = result[1];
 		
-		AsyncSync as = new AsyncSync(activity);
+		AsyncSync as = new AsyncSync(context);
     	as.execute(new String[]{jsonString,jsonDeleteString});
     	
 		/**
