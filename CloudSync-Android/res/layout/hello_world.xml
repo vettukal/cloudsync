@@ -4,21 +4,29 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#000000">
-    <ListView 
-        android:id="@+id/time_list"
-        android:layout_width="match_parent"
-        android:layout_height="300dp" 
-        >
-        ></ListView>
+    
+    
+    <TextView
+        android:id="@+id/hello_world"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="#000000"
+        android:gravity="center"
+        android:padding="10dip"
+        android:text="@string/hello_world_text"
+        android:textColor="#ffffff"
+        android:textSize="16dip" />
         
     <LinearLayout
     android:id="@+id/button_layout"    
+    android:layout_above="@id/hello_world"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:orientation="horizontal" 
-    android:layout_below="@id/time_list"
     >
     
     <Button
@@ -43,6 +51,14 @@
     
     </LinearLayout>
 
+    <ListView 
+        android:id="@+id/time_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_above="@id/button_layout"
+        >
+        </ListView>
+        
     <Button
         android:id="@+id/delete_all"
         android:layout_width="fill_parent"
@@ -68,17 +84,6 @@
         android:visibility="invisible"
         />
 
-    <TextView
-        android:id="@+id/hello_world"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_layout"
-        android:background="#000000"
-        android:gravity="center"
-        android:padding="10dip"
-        android:text="@string/hello_world_text"
-        android:textColor="#ffffff"
-        android:textSize="16dip" />
+    
 
 </RelativeLayout>
