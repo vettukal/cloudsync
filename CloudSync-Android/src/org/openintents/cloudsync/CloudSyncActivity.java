@@ -20,6 +20,8 @@ import org.openintents.cloudsync.notepad.AsyncDetectChange;
 import org.openintents.cloudsync.notepad.NotePad;
 import org.openintents.cloudsync.shared.CloudSyncRequestFactory;
 import org.openintents.cloudsync.syncadapter.Alarm;
+import org.openintents.cloudsync.util.Dumper;
+import org.openintents.cloudsync.util.Ulg;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -45,6 +47,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -254,6 +257,37 @@ public class CloudSyncActivity extends Activity {
         idmapCur.close();
         cloudMod.close();
         
+        //Initializing the list-view
+        ListView listView = (ListView) findViewById(R.id.time_list);
+           // Taking the time value
+        timeCur = getContentResolver().query(CloudSyncContentProvider.TIME_CONTENT_URI, null, null, null, null);
+        timeCur.moveToFirst();
+        int timeLen = timeCur.getCount();
+        String[] timeArr = new String[timeLen];
+        for(int i =0;i<timeCur.getCount();i++) {
+        	timeArr[i] = timeCur.getString(1);
+        	timeCur.moveToNext();
+        }
+        String[] demo_value = new String[] { "Android", "iOS", "WindowsMobile",
+				"Blackberry", "Android", "iOS", "WindowsMobile", "Blackberry" };
+        Ulg.d("the lenght of timeArr is:=> "+timeArr.length);
+        
+        String[] val = new String[5];
+        String[] parVal; 
+		if(timeArr.length < 5) {
+			for (int i = 0; i < timeArr.length; i++) {
+				val[i] = timeArr[i];
+			}
+			for(int i = timeArr.length;i<5;i++) {
+				val[i] = "noval";
+			}
+			parVal = val;
+		} else {
+			parVal = timeArr;
+		}
+        SyncTimeArrayAdapter staAdapt = new SyncTimeArrayAdapter(this, parVal); 
+        listView.setAdapter(staAdapt);
+        timeCur.close();
         //deleteAll.setVisibility(Button.INVISIBLE);
         deleteAll.setOnClickListener(new OnClickListener() {
 			
