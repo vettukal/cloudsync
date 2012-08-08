@@ -445,9 +445,20 @@ public class CloudSyncActivity extends Activity {
     	final Button syncButton = (Button) findViewById(R.id.sync_test);
 		syncButton.setEnabled(false);
     	
-    	helloWorld.setText("Fetching data from OI Note");
-    	AsyncDetectChange adc = new AsyncDetectChange(this);
-		adc.execute();
+		SharedPreferences prefs = Util.getSharedPreferences(this);
+		SharedPreferences.Editor editor = prefs.edit();
+		boolean inSync = prefs.getBoolean(Util.IN_SYNC, false);
+		long nowTime = System.currentTimeMillis();
+		long lastTime = prefs.getLong(Util.LAST_TIME, 0);
+		if ((nowTime - lastTime) > 120000) {
+			editor.putLong(Util.LAST_TIME, nowTime);
+			editor.putBoolean(Util.IN_SYNC, true);
+			Log.d("vincent", "Do the sync baccha!!");
+			editor.commit();
+			helloWorld.setText("Fetching data from OI Note");
+	    	AsyncDetectChange adc = new AsyncDetectChange(this);
+			adc.execute();
+		}
     }
     
     private void startSync() {
